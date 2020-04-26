@@ -24,7 +24,6 @@ namespace ContosoUniversity.Repositories.Implements
                                       select course).ToListAsync();
 
             return listCourses;
-            //prueba
         }
     }    
 }
