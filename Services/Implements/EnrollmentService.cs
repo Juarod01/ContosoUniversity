@@ -9,7 +9,7 @@ namespace ContosoUniversity.Services.Implements
 {
     public class EnrollmentService : GenericService<Enrollment>, IEnrollmentService
     {
-        private IEnrollmentRepository enrollmentReository;
+        private IEnrollmentRepository enrollmentRepository;
 
         public EnrollmentService(IEnrollmentRepository enrollmentReository) : base(enrollmentReository)
         {
