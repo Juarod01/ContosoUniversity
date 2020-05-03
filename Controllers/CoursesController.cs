@@ -1,11 +1,10 @@
-﻿using ContosoUniversity.Data;
+﻿using AutoMapper;
+using ContosoUniversity.DTOs;
 using ContosoUniversity.Models;
 using ContosoUniversity.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using System.Linq;
-using AutoMapper;
-using ContosoUniversity.DTOs;
+using System.Threading.Tasks;
 
 namespace ContosoUniversity.Controllers
 {
@@ -28,26 +27,27 @@ namespace ContosoUniversity.Controllers
                 var data = await _courseService.GetStudentsByCourse(id.Value);
                 ViewBag.Students = data.Select(x => _mapper.Map<StudentDTO>(x)).ToList();
             }
+            var dataList = await _courseService.GetAll();
 
-            return View(await _courseService.GetAll());
+            var listCourses = dataList.Select(x => _mapper.Map<CourseDTO>(x)).ToList();
+
+            return View(listCourses);
         }
 
         // GET: Courses/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var course = await _courseService.GetById(id.Value);
 
             if (course == null)
-            {
                 return NotFound();
-            }
 
-            return View(course);
+            var courseDTO = _mapper.Map<CourseDTO>(course);
+
+            return View(courseDTO);
         }
 
         // GET: Courses/Create
@@ -59,30 +59,31 @@ namespace ContosoUniversity.Controllers
         // POST: Courses/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CourseID,Title,Credits")] Course course)
+        public async Task<IActionResult> Create(CourseDTO courseDTO)
         {
             if (ModelState.IsValid)
             {
-                await _courseService.Insert(course);
-                return RedirectToAction(nameof(Index));
+                var course = _mapper.Map<Course>(courseDTO);
+                course = await _courseService.Insert(course);
+                var id = course.CourseID;
+                return RedirectToAction("Index");
             }
-            return View(course);
+            return View(courseDTO);
         }
 
         // GET: Courses/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var course = await _courseService.GetById(id.Value);
             if (course == null)
-            {
                 return NotFound();
-            }
-            return View(course);
+
+            var courseDTO = _mapper.Map<CourseDTO>(course);
+
+            return View(courseDTO);
         }
 
         // POST: Courses/Edit/5
@@ -90,36 +91,29 @@ namespace ContosoUniversity.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CourseID,Title,Credits")] Course course)
+        public async Task<IActionResult> Edit(CourseDTO courseDTO)
         {
-            if (id != course.CourseID)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                await _courseService.Update(course);
-                return RedirectToAction(nameof(Index));
+                var course = _mapper.Map<Course>(courseDTO);
+
+                course = await _courseService.Update(course);
+                return RedirectToAction("Index");
             }
-            return View(course);
+            return View(courseDTO);
         }
 
         // GET: Courses/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var course = await _courseService.GetById(id.Value);
             if (course == null)
-            {
                 return NotFound();
-            }
 
-            return View(course);
+            return RedirectToAction("Index");
         }
 
         // POST: Courses/Delete/5

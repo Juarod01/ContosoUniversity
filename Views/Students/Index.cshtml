@@ -50,7 +50,7 @@
 
 @if (ViewBag.Courses != null)
     {
-        var listCourses = (IEnumerable<ContosoUniversity.Models.Course>)ViewBag.Courses;
+        var listCourses = (IEnumerable<ContosoUniversity.DTOs.CourseDTO>)ViewBag.Courses;
 
         <h3>Courses Enrolled in Selected Students</h3>
 

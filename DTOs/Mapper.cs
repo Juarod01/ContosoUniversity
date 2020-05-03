@@ -16,6 +16,8 @@ namespace ContosoUniversity.DTOs
             CreateMap<Student, StudentDTO>();
             CreateMap<DepartmentDTO, Department>();
             CreateMap<Department, DepartmentDTO>();
+            CreateMap<CourseDTO, Course>();
+            CreateMap<Course, CourseDTO>();
         }
     }
 }

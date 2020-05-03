@@ -23,7 +23,7 @@ namespace ContosoUniversity.Controllers
             if (id != null)
             {
                 var data = await _studentService.GetCoursesByStudent(id.Value);
-                ViewBag.Courses = data.Select(x => _mapper.Map<Course>(x)).ToList();
+                ViewBag.Courses = data.Select(x => _mapper.Map<CourseDTO>(x)).ToList();
             }
             var dataList = await _studentService.GetAll();
 
@@ -105,7 +105,7 @@ namespace ContosoUniversity.Controllers
 
             await _studentService.Delete(id.Value);
 
-            return RedirectToAction("index");
+            return RedirectToAction("Index");
         }
     }
 }
