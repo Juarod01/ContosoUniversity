@@ -24,7 +24,7 @@ namespace ContosoUniversity.Controllers
         public async Task<IActionResult> Index()
         {
             var dataList = await _departmentService.GetAll();
-            var listDespartments = dataList.Select(x => _mapper.Map<Department>(x)).ToList();
+            var listDespartments = dataList.Select(x => _mapper.Map<DepartmentDTO>(x)).ToList();
 
             return View(listDespartments);
         }
