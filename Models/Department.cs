@@ -13,6 +13,6 @@ namespace ContosoUniversity.Models
         public DateTime StartDate { get; set; }
         public int InstructorID { get; set; }
 
-        public ICollection<Instructor> Instructors { get; set; }
+        public Instructor Instructor { get; set; }
     }
 }
