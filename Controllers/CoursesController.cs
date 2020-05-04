@@ -109,9 +109,7 @@ namespace ContosoUniversity.Controllers
             if (id == null)
                 return NotFound();
 
-            var course = await _courseService.GetById(id.Value);
-            if (course == null)
-                return NotFound();
+            await _courseService.Delete(id.Value);
 
             return RedirectToAction("Index");
         }

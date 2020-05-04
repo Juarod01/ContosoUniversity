@@ -1,8 +1,6 @@
-﻿using System;
+﻿using ContosoUniversity.Models;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using ContosoUniversity.Models;
 
 namespace ContosoUniversity.Services
 {

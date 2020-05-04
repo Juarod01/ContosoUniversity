@@ -1,5 +1,4 @@
-﻿@model ContosoUniversity.Models.Department
-
+﻿@model ContosoUniversity.DTOs.DepartmentDTO
 @{
     ViewData["Title"] = "Delete";
 }
@@ -30,10 +29,10 @@
             @Html.DisplayFor(model => model.StartDate)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Instructor)
+            @Html.DisplayNameFor(model => model.InstructorID)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Instructor.ID)
+            @Html.DisplayFor(model => model.InstructorID)
         </dd>
     </dl>
     

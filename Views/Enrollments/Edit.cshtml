@@ -1,35 +1,35 @@
 ﻿@model ContosoUniversity.DTOs.EnrollmentDTO
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
-<h2>Create</h2>
+<h2>Edit</h2>
 
 <h4>Enrollment</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="EnrollmentID" />
             <div class="form-group">
                 <label asp-for="CourseID" class="control-label"></label>
-
-                @Html.DropDownListFor(m => m.CourseID, new SelectList(ViewBag.Courses, "CourseID", "Title"), new { @class = "form-control" })
+                <select asp-for="CourseID" class="form-control" asp-items="ViewBag.CourseID"></select>
+                <span asp-validation-for="CourseID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="StudentID" class="control-label"></label>
-                @Html.DropDownListFor(m => m.StudentID, new SelectList(ViewBag.Students, "ID", "LastName"), new { @class = "form-control" })
+                <select asp-for="StudentID" class="form-control" asp-items="ViewBag.StudentID"></select>
+                <span asp-validation-for="StudentID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Grade" class="control-label"></label>
-                
-                @Html.DropDownListFor(m => m.Grade, new SelectList(Enum.GetValues(typeof(Grade)), "Grade"), new { @class = "form-control" })
-
+                <input asp-for="Grade" class="form-control" />
                 <span asp-validation-for="Grade" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </form>
     </div>

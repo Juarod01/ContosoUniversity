@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using ContosoUniversity.Services;
 using Microsoft.AspNetCore.Mvc;
 using ContosoUniversity.Models;
+using ContosoUniversity.DTOs;
+using AutoMapper;
 
 namespace ContosoUniversity.Controllers
 {
@@ -13,37 +15,47 @@ namespace ContosoUniversity.Controllers
         private IEnrollmentService _enrollmentService;
         private IStudentService _studentService;
         private ICourseService _courseService;
+        private readonly IMapper _mapper;
         public EnrollmentsController(IEnrollmentService enrollmentService,
             IStudentService studentService,
-            ICourseService courseService)
+            ICourseService courseService,
+            IMapper mapper)
         {
             _enrollmentService = enrollmentService;
             _studentService = studentService;
             _courseService = courseService;
+            _mapper = mapper;
         }
         public async Task<IActionResult> Index()
         {
-            var listEnrollment = await _enrollmentService.GetAll();
-            return View(listEnrollment);
+            var dataList = await _enrollmentService.GetAll();
+            var listEnrollments = dataList.Select(x => _mapper.Map<EnrollmentDTO>(x)).ToList();
+            
+            return View(listEnrollments);
         }
 
         public async Task<ActionResult> Create()
         {
-            ViewBag.Courses = await _courseService.GetAll();
-            ViewBag.Students = await _studentService.GetAll();
+            var dataCourses = await _courseService.GetAll();
+            ViewBag.Courses = dataCourses.Select(x => _mapper.Map<CourseDTO>(x)).ToList();
+            var dataStudents = await _studentService.GetAll();
+            ViewBag.Students = dataStudents.Select(x => _mapper.Map<StudentDTO>(x)).ToList();
 
             return View();
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(Enrollment model)
+        public async Task<ActionResult> Create(EnrollmentDTO enrollmentDTO)
         {
             if (!ModelState.IsValid)
-                return View(model);
+                return View(enrollmentDTO);
 
-            await _enrollmentService.Insert(model);
-
+            var enrollment = _mapper.Map<Enrollment>(enrollmentDTO);
+            await _enrollmentService.Insert(enrollment);
+            var id = enrollment.EnrollmentID;
             return RedirectToAction("Index");
         }
+
+
     }
 }

@@ -10,13 +10,16 @@ namespace ContosoUniversity.Controllers
 {
     public class DepartmentsController : Controller
     {
-        private readonly IDepartmentService _departmentService;
+        private IDepartmentService _departmentService;
+        private IInstructorService _instructorService;
         private readonly IMapper _mapper;
 
         public DepartmentsController(IDepartmentService departmentService, 
+            IInstructorService instructorService,
             IMapper mapper)
         {
             _departmentService = departmentService;
+            _instructorService = instructorService;
             _mapper = mapper;
         }
 
@@ -49,8 +52,11 @@ namespace ContosoUniversity.Controllers
         }
 
         // GET: Departments/Create
-        public IActionResult Create()
+        public async Task<ActionResult> Create()
         {
+            var dataInstructor = await _instructorService.GetAll();
+            ViewBag.Instructors = dataInstructor.Select(x => _mapper.Map<InstructorDTO>(x)).ToList();
+
             return View();
         }
 
