@@ -30,7 +30,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="InstructorID" class="control-label"></label>
-                <select asp-for="InstructorID" class="form-control" asp-items="ViewBag.InstructorID"></select>
+                @Html.DropDownListFor(m => m.InstructorID, new SelectList(ViewBag.Instructors, "ID", "LastName"), new { @class = "form-control" })
                 <span asp-validation-for="InstructorID" class="text-danger"></span>
             </div>
             <div class="form-group">

@@ -21,5 +21,13 @@ namespace ContosoUniversity.DTOs
         [Required(ErrorMessage = "The Hire Data is required")]
         [Display(Name = "Hire Data")]
         public DateTime HireDate { get; set; }
+
+        public string FullName
+        {
+            get
+            {
+                return string.Format("{0} {1}", LastName, FirstMidName);
+            }
+        }
     }
 }

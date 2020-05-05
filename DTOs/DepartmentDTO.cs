@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using ContosoUniversity.Models;
 
 namespace ContosoUniversity.DTOs
 {
@@ -22,5 +23,7 @@ namespace ContosoUniversity.DTOs
         [Required(ErrorMessage = "The Instructor Id is required")]
         [Display(Name = "Instructor Id")]
         public int InstructorID { get; set; }
+
+        public Instructor Instructor { get; set; }
     }
 }

@@ -86,6 +86,9 @@ namespace ContosoUniversity.Controllers
 
             var department = await _departmentService.GetById(id.Value);
 
+            var dataInstructor = await _instructorService.GetAll();
+            ViewBag.Instructors = dataInstructor.Select(x => _mapper.Map<InstructorDTO>(x)).ToList();
+
             if (department == null)
                 return NotFound();
 
