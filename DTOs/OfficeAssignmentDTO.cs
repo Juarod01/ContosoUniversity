@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using ContosoUniversity.Models;
 
 namespace ContosoUniversity.DTOs
 {
@@ -15,5 +16,7 @@ namespace ContosoUniversity.DTOs
         [Required(ErrorMessage = "The Location is required")]
         [Display(Name = "Location")]
         public string Location { get; set; }
+
+        public Instructor Instructor { get; set; }
     }
 }

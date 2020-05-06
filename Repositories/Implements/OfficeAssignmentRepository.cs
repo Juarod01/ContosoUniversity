@@ -15,5 +15,14 @@ namespace ContosoUniversity.Repositories.Implements
         {
             _schoolContext = SchoolContext;
         }
+
+        public new async Task<List<OfficeAssignment>> GetAll()
+        {
+            var listOfficeAssignment = await _schoolContext.OfficeAssignments
+                .Include(x => x.Instructor)
+                .ToListAsync();
+
+            return listOfficeAssignment;
+        }
     }
 }
