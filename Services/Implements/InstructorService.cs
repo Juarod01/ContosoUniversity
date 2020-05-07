@@ -13,5 +13,14 @@ namespace ContosoUniversity.Services.Implements
         {
             _instructorRepository = instructorRepository;
         }
+
+        public async Task<IEnumerable<Course>> GetCoursesByInstructor(int id)
+        {
+            return await _instructorRepository.GetCoursesByInstructor(id);
+        }
+        public async Task<IEnumerable<Enrollment>> GetStudentsByCourse(int id)
+        {
+            return await _instructorRepository.GetStudentsByCourse(id);
+        }
     }
 }

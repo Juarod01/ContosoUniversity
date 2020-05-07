@@ -15,5 +15,25 @@ namespace ContosoUniversity.Repositories.Implements
         {
             _schoolContext = SchoolContext;
         }
+
+        public async Task<IEnumerable<Course>> GetCoursesByInstructor(int id)
+        {
+            var listCourses = await (from courseInstructor in _schoolContext.CourseInstructors
+                                     join course in _schoolContext.Courses on courseInstructor.CourseID equals course.CourseID
+                                     where courseInstructor.InstructorID == id
+                                     select course).ToListAsync();
+
+            return listCourses;
+        }
+
+        public async Task<IEnumerable<Enrollment>> GetStudentsByCourse(int id)
+        {
+            var listStudents = await _schoolContext.Enrollments
+                                     .Include(x => x.Student)
+                                     .Where(x => x.CourseID == id)
+                                     .ToListAsync();
+
+            return listStudents;
+        }
     }
 }

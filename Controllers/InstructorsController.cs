@@ -24,8 +24,19 @@ namespace ContosoUniversity.Controllers
         }
 
         // GET: Instructors
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id, int? courseID)
         {
+            if (id != null)
+            {
+                var data = await _instructorService.GetCoursesByInstructor(id.Value);
+                ViewBag.Courses = data.Select(x => _mapper.Map<CourseDTO>(x)).ToList();
+            }
+            if (courseID != null)
+            {
+                var dataCourse = await _instructorService.GetStudentsByCourse(courseID.Value);
+                ViewBag.Students = dataCourse.Select(x => _mapper.Map<EnrollmentDTO>(x)).ToList();
+            }
+            
             var dataList = await _instructorService.GetAll();
             var listInstructors = dataList.Select(x => _mapper.Map<InstructorDTO>(x)).ToList();
 

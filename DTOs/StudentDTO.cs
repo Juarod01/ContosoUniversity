@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using ContosoUniversity.Models;
 
 namespace ContosoUniversity.DTOs
 {
@@ -17,7 +18,7 @@ namespace ContosoUniversity.DTOs
         
         [Required(ErrorMessage = "The Enrollment Date is required")]
         [Display(Name = "Enrollment Date")]
-        public DateTime EnrollmentDate { get; set; }
+        public DateTime EnrollmentDate { get; set; }        
 
         public string FullName
         {

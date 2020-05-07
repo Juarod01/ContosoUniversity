@@ -6,5 +6,7 @@ namespace ContosoUniversity.Services
 {
     public interface IInstructorService : IGenericService<Instructor>
     {
+        Task<IEnumerable<Course>> GetCoursesByInstructor(int id);
+        Task<IEnumerable<Enrollment>> GetStudentsByCourse(int id);
     }
 }
